@@ -3,10 +3,10 @@ version: '3.8'
 services:
   database:
     container_name: cilist-db
-    image: nugrohop2003/cilist-db:${GIT_COMMIT_SHORT}
+    image: nugrohop2003/cilist-pipeline-db:${GIT_COMMIT_SHORT}
   
   backend:
-    image: nugrohop2003/cilist-be:${GIT_COMMIT_SHORT}
+    image: nugrohop2003/cilist-pipeline-be:${GIT_COMMIT_SHORT}
     ports:
       - "5000:5000"
     depends_on:
@@ -21,7 +21,7 @@ services:
       - DATABASE_PORT=3306
   
   frontend:
-    image: nugrohop2003/cilist-fe:${GIT_COMMIT_SHORT}
+    image: nugrohop2003/cilist-pipeline-fe:${GIT_COMMIT_SHORT}
     ports:
       - "3000:3000"
     environment:
