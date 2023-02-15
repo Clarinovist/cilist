@@ -5,6 +5,6 @@ ENV MYSQL_DATABASE=people
 ENV MYSQL_USER=people
 ENV MYSQL_PASSWORD=people
 
-ADD crud_db.sql /docker-entrypoint-initdb.d/crud_db.sql
+COPY ./crud_db.sql /docker-entrypoint-initdb.d/crud_db.sql
 
 EXPOSE 3306
