@@ -16,7 +16,7 @@ services:
     environment:
       - BASE_URL_PORT=5000
       - MYSQL_ROOT_PASSWORD=s3k0l4hd3v0p5
-      - DATABASE_USERNAME=people
+      - DATABASE_USERNAME=root
       - DATABASE_PASSWORD=people
       - DATABASE_DATABASE=people
       - DATABASE_HOST=database
