@@ -20,3 +20,5 @@ sudo apt update
 # Install the latest version of Docker Engine and containerd
 sudo apt install docker-ce docker-ce-cli containerd.io -y
 
+# Run docker compose 
+sudo docker compose -f docker-compose1.yaml up -d
