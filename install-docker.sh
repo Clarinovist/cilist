@@ -21,6 +21,6 @@ sudo apt update
 sudo apt install docker-ce docker-ce-cli containerd.io -y
 sudo docker compose -f docker-compose1.yaml up -d
 
-export BACKEND_PUBLIC_IP=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=my-instance" --query 'Reservations[0].Instances[0].PublicIpAddress' --output text)
+export BACKEND_PUBLIC_IP=$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)
 sudo sed -i "s/BACKEND_PUBLIC_IP/$BACKEND_PUBLIC_IP/g" docker-compose1.yaml
 sudo docker-compose restart
