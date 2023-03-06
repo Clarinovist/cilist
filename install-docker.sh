@@ -19,4 +19,8 @@ sudo apt update
 
 # Install the latest version of Docker Engine and containerd
 sudo apt install docker-ce docker-ce-cli containerd.io -y
+sudo docker compose -f docker-compose1.yaml up -d
 
+export BACKEND_PUBLIC_IP=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=my-instance" --query 'Reservations[0].Instances[0].PublicIpAddress' --output text)
+sudo sed -i "s/BACKEND_PUBLIC_IP/$BACKEND_PUBLIC_IP/g" docker-compose1.yaml
+sudo docker-compose restart
