@@ -5,6 +5,12 @@ services:
     container_name: cilist-db
     build:
       context: ./database
+    restart: "on-failutre"
+    healthcheck:
+      test: ["CMD-SHELL", "test -d '/var/lib/mysql/people'"]
+      interval: 5s  # the command will be run every 5 seconds
+      timeout: 3s   # maximum time for test to run before considered failure
+      retries: 10   # number of retried before considered failure
   
   backend:
     build:
@@ -21,11 +27,17 @@ services:
       - DATABASE_DATABASE=people
       - DATABASE_HOST=database
       - DATABASE_PORT=3306
+    depends_on:
+      database:
+        condition: service_healthy
   
   frontend:
     build:
       context: ./frontend
     ports:
-      - "3000:3000"
+      - "80:3000"
     environment:
       - REACT_APP_BACKEND_URL=http://BACKEND_PUBLIC_IP:5000
+    depends_on:
+      backend:
+        condition: service_healthy
