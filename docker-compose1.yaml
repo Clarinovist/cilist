@@ -5,7 +5,7 @@ services:
     container_name: cilist-db
     build:
       context: ./database
-    restart: "on-failutre"
+    restart: "on-failure"
     healthcheck:
       test: ["CMD-SHELL", "test -d '/var/lib/mysql/people'"]
       interval: 5s  # the command will be run every 5 seconds
