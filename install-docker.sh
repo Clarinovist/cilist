@@ -20,7 +20,10 @@ sudo apt update
 # Install the latest version of Docker Engine and containerd
 sudo apt install docker-ce docker-ce-cli containerd.io -y
 
-export BACKEND_PUBLIC_IP=$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)
-sudo sed -i "s/BACKEND_PUBLIC_IP/$BACKEND_PUBLIC_IP/g" docker-compose1.yaml
+# Create container for database
+sudo docker compose -f docker-compose-db.yaml up -d
 
-sudo docker compose -f docker-compose1.yaml up -d
+# Create container for application
+export BACKEND_PUBLIC_IP=$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)
+sudo sed -i "s/BACKEND_PUBLIC_IP/$BACKEND_PUBLIC_IP/g" docker-compose-app.yaml
+sudo docker compose -f docker-compose-app.yaml up -d
